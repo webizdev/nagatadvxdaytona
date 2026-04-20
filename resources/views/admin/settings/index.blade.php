@@ -146,10 +146,9 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead>
-                        <tr class="text-slate-500 text-[10px] uppercase font-black tracking-[.2em] border-b border-slate-700">
+                        <tr class="text-left text-xs font-black text-slate-500 uppercase tracking-widest border-b border-slate-700/50">
                             <th class="px-4 py-4">Nama Cabang</th>
                             <th class="px-4 py-4">Alamat & Nomor Kontak</th>
-                            <th class="px-4 py-4">Status Peta</th>
                             <th class="px-4 py-4 text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -160,17 +159,6 @@
                             <td class="px-4 py-6">
                                 <p class="text-slate-400 text-xs mb-1 max-w-md">{{ $branch->address }}</p>
                                 <span class="text-[10px] bg-slate-900 border border-slate-700 px-2 py-1 rounded-md text-slate-500 font-mono">{{ $branch->phone ?? '-' }}</span>
-                            </td>
-                            <td class="px-4 py-6">
-                                @if($branch->maps_iframe)
-                                    <span class="text-[10px] bg-green-500/10 text-green-500 font-black px-2 py-1 rounded-lg flex items-center gap-1 w-fit">
-                                        <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div> MAP TERSEDIA
-                                    </span>
-                                @else
-                                    <span class="text-[10px] bg-slate-900 text-slate-600 font-black px-2 py-1 rounded-lg flex items-center gap-1 w-fit">
-                                        <div class="w-1.5 h-1.5 rounded-full bg-slate-700"></div> TANPA MAP
-                                    </span>
-                                @endif
                             </td>
                             <td class="px-4 py-6">
                                 <div class="flex items-center justify-center gap-2">
@@ -263,11 +251,7 @@
             <div>
                 <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Link Google Maps (URL Direct)</label>
                 <input type="url" name="maps_url" placeholder="https://maps.google.com/..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
-                <p class="text-[9px] text-slate-500 mt-1 italic">* Digunakan untuk tautan pada ikon peta</p>
-            </div>
-            <div>
-                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Iframe Google Maps (Embed)</label>
-                <textarea name="maps_iframe" rows="4" placeholder="Tempel kode <iframe> dari Google Maps di sini" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner"></textarea>
+                <p class="text-[9px] text-slate-500 mt-1 italic">* Contoh: https://maps.app.goo.gl/...</p>
             </div>
             <div class="flex justify-end gap-4 mt-8">
                 <button type="button" @click="showAddBranch = false" class="px-6 py-3 rounded-xl text-slate-400 hover:text-white font-black uppercase text-xs">Batal</button>
@@ -304,10 +288,6 @@
                 <div>
                     <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Link Google Maps (URL Direct)</label>
                     <input type="url" name="maps_url" x-model="editingBranch.maps_url" placeholder="https://maps.google.com/..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner focus:ring-red-500 focus:border-red-500 transition-all">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Iframe Google Maps (Embed)</label>
-                    <textarea name="maps_iframe" x-model="editingBranch.maps_iframe" rows="4" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 shadow-inner"></textarea>
                 </div>
                 <div class="flex justify-end gap-4 mt-8">
                     <button type="button" @click="showEditBranch = false" class="px-6 py-3 rounded-xl text-slate-400 hover:text-white font-black uppercase text-xs">Batal</button>
