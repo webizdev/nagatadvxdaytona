@@ -2,11 +2,11 @@
 
 @section('title', 'Pengaturan Website')
 
-@section('header_scripts')
+@push('styles')
 <style>
     [x-cloak] { display: none !important; }
 </style>
-@endsection
+@endpush
 
 @section('content')
 <div x-data="{ 
