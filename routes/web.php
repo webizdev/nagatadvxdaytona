@@ -22,6 +22,21 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
     Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
+
+    // Website Settings Routes
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('index');
+        Route::post('/identity', [\App\Http\Controllers\Admin\SettingController::class, 'updateIdentity'])->name('update-identity');
+        
+        // Branches
+        Route::post('/branches', [\App\Http\Controllers\Admin\SettingController::class, 'storeBranch'])->name('store-branch');
+        Route::put('/branches/{branch}', [\App\Http\Controllers\Admin\SettingController::class, 'updateBranch'])->name('update-branch');
+        Route::delete('/branches/{branch}', [\App\Http\Controllers\Admin\SettingController::class, 'destroyBranch'])->name('destroy-branch');
+
+        // Social Media
+        Route::post('/social', [\App\Http\Controllers\Admin\SettingController::class, 'storeSocial'])->name('store-social');
+        Route::delete('/social/{social}', [\App\Http\Controllers\Admin\SettingController::class, 'destroySocial'])->name('destroy-social');
+    });
 });
 
 // Profile Routes (from Breeze)
