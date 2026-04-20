@@ -69,9 +69,18 @@
                         <div>
                             <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Logo Website</label>
                             <div class="flex flex-col md:flex-row items-center gap-8 p-8 bg-slate-900 rounded-2xl border border-dashed border-slate-700">
-                                <div class="w-32 h-32 bg-slate-800 rounded-xl flex items-center justify-center overflow-hidden border border-slate-700 p-4 shadow-inner">
+                                <div class="w-32 h-32 bg-slate-800 rounded-xl flex items-center justify-center overflow-hidden border border-slate-700 p-4 shadow-inner relative group">
                                     @if(isset($settings['site_logo']) && $settings['site_logo'])
                                         <img src="{{ asset('storage/' . $settings['site_logo']) }}" class="max-w-full max-h-full object-contain">
+                                        
+                                        <!-- Delete Logo Button (X) -->
+                                        <form action="{{ route('admin.settings.delete-logo') }}" method="POST" class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity" onsubmit="return confirm('Hapus logo website?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 shadow-lg" title="Hapus Logo">
+                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                            </button>
+                                        </form>
                                     @else
                                         <svg class="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     @endif
@@ -198,7 +207,7 @@
                 <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 group relative hover:border-slate-500 transition-all">
                     <div class="flex items-start justify-between">
                         <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center text-red-500 shadow-lg border border-slate-700">
-                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
                         </div>
                         <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-all">
                              <button @click="openEditSocial({{ json_encode($social) }})" class="p-2 text-slate-500 hover:text-white transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg></button>

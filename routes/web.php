@@ -30,6 +30,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::get('/', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('index');
         Route::post('/identity', [\App\Http\Controllers\Admin\SettingController::class, 'updateIdentity'])->name('update-identity');
+        Route::delete('/logo', [\App\Http\Controllers\Admin\SettingController::class, 'deleteLogo'])->name('delete-logo');
         
         // Branches
         Route::post('/branches', [\App\Http\Controllers\Admin\SettingController::class, 'storeBranch'])->name('store-branch');
