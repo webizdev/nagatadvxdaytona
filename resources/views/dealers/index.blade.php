@@ -35,7 +35,7 @@
                         <div class="h-px bg-slate-200 flex-1 ml-4 hidden sm:block"></div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         @foreach($branches as $branch)
                             <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-200 hover:shadow-lg hover:border-daytona-orange/50 transition-all duration-300 flex flex-col relative group">
                                 <div class="flex items-start justify-between mb-3 gap-2">
