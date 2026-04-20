@@ -106,15 +106,24 @@
         </div>
     </div>
 </section>
-
-<!-- Interactive Map (Full Width) -->
-<section class="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-[500px] bg-slate-100 overflow-hidden border-t border-slate-200">
-    <div class="w-full h-full [&>iframe]:!w-full [&>iframe]:!h-full [&>iframe]:!border-0">
+<!-- Interactive Map (Full Width Fix) -->
+<div class="relative w-full h-[500px] border-t border-slate-200 mt-12">
+    <style>
+        .aggressive-map-container iframe {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            border: 0 !important;
+        }
+    </style>
+    <div class="aggressive-map-container w-full h-full">
         @if(!empty($webSettings['maps_iframe']))
             {!! $webSettings['maps_iframe'] !!}
         @else
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.667056952686!2d106.8271106!3d-6.175308299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sNational%20Monument!5e1!3m2!1sen!2sid!4v1776611068769!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         @endif
     </div>
-</section>
+</div>
 @endsection
