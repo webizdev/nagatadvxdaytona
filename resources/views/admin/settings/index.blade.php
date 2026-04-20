@@ -234,7 +234,6 @@
         </div>
 
     </div>
-</div>
 
 <!-- ================= MODALS ================= -->
 
@@ -248,22 +247,22 @@
         <form action="{{ route('admin.settings.store-branch') }}" method="POST" class="p-8 space-y-6">
             @csrf
             <div>
-                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Nama Cabang</label>
-                <input type="text" name="name" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
+                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Nama Kota</label>
+                <input type="text" name="name" required placeholder="Contoh: Yogyakarta" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Telp/WhatsApp</label>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Nomor WhatsApp Cabang</label>
                     <input type="text" name="phone" placeholder="0812..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Alamat Lengkap</label>
-                    <input type="text" name="address" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Alamat Cabang</label>
+                    <input type="text" name="address" required placeholder="Jl. Raya No. 123..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
                 </div>
             </div>
             <div>
-                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Google Maps <iframe></label>
-                <textarea name="maps_iframe" rows="4" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner"></textarea>
+                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Link Maps (Iframe)</label>
+                <textarea name="maps_iframe" rows="4" placeholder="Tempel kode <iframe> dari Google Maps di sini" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner"></textarea>
             </div>
             <div class="flex justify-end gap-4 mt-8">
                 <button type="button" @click="showAddBranch = false" class="px-6 py-3 rounded-xl text-slate-400 hover:text-white font-black uppercase text-xs">Batal</button>
@@ -278,31 +277,31 @@
     <div @click.away="showEditBranch = false" class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden transform transition-all" x-transition>
         <div class="p-6 border-b border-slate-700 flex justify-between items-center">
             <h3 class="font-black text-white uppercase tracking-widest text-sm">Edit Data Cabang</h3>
-            <button @click="showEditBranch = false" class="text-slate-500 hover:text-white transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            <button @click="showEditBranch = false" class="text-slate-500 hover:text-white transition-colors"><svg class="w-6 h-6 border-2 border-slate-700 rounded-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
         </div>
         <template x-if="editingBranch.id">
             <form :action="'/admin/settings/branches/' + editingBranch.id" method="POST" class="p-8 space-y-6">
                 @csrf @method('PUT')
                 <div>
-                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Nama Cabang</label>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Nama Kota</label>
                     <input type="text" name="name" x-model="editingBranch.name" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Telp/WA</label>
+                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Nomor WhatsApp Cabang</label>
                         <input type="text" name="phone" x-model="editingBranch.phone" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Alamat Lengkap</label>
+                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Alamat</label>
                         <input type="text" name="address" x-model="editingBranch.address" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Google Maps <iframe></label>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Link Maps (Iframe)</label>
                     <textarea name="maps_iframe" x-model="editingBranch.maps_iframe" rows="4" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 shadow-inner"></textarea>
                 </div>
                 <div class="flex justify-end gap-4 mt-8">
-                    <button type="button" @click="showEditBranch = false" class="px-6 py-3 rounded-xl text-slate-400 hover:text-white font-black uppercase text-xs font-black">Batal</button>
+                    <button type="button" @click="showEditBranch = false" class="px-6 py-3 rounded-xl text-slate-400 hover:text-white font-black uppercase text-xs">Batal</button>
                     <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-10 py-3 rounded-xl font-black uppercase text-xs shadow-lg shadow-red-500/20">Update Cabang</button>
                 </div>
             </form>
@@ -356,4 +355,5 @@
     </div>
 </div>
 
+    </div>
 @endsection
