@@ -57,7 +57,6 @@ class SettingController extends Controller
             'name' => 'required|string',
             'address' => 'required|string',
             'phone' => 'nullable|string',
-            'maps_iframe' => 'nullable|string',
             'maps_url' => 'nullable|string',
         ]);
 
@@ -71,7 +70,7 @@ class SettingController extends Controller
             'name' => 'required|string',
             'address' => 'required|string',
             'phone' => 'nullable|string',
-            'maps_iframe' => 'nullable|string',
+            'maps_url' => 'nullable|string',
         ]);
 
         $branch->update($data);
