@@ -107,12 +107,12 @@
     </div>
 </section>
 
-<!-- Interactive Map -->
-<section class="h-[500px] w-full relative">
+<!-- Interactive Map (Full Width) -->
+<section class="h-[500px] w-full relative overflow-hidden [&>iframe]:w-full [&>iframe]:h-full border-t border-slate-100">
     @if(!empty($webSettings['maps_iframe']))
         {!! $webSettings['maps_iframe'] !!}
     @else
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.667056952686!2d106.8271106!3d-6.175308299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sNational%20Monument!5e1!3m2!1sen!2sid!4v1776611068769!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.667056952686!2d106.8271106!3d-6.175308299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sNational%20Monument!5e1!3m2!1sen!2sid!4v1776611068769!5m2!1sen!2sid" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     @endif
 </section>
 @endsection
