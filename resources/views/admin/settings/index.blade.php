@@ -234,125 +234,126 @@
         </div>
 
     </div>
+</div>
 
-    <!-- ================= MODALS (MOVED INSIDE x-data) ================= -->
+<!-- ================= MODALS ================= -->
 
-    <!-- ADD BRANCH MODAL -->
-    <div x-show="showAddBranch" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-sm">
-        <div @click.away="showAddBranch = false" class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden transform transition-all" x-transition>
-            <div class="p-6 border-b border-slate-700 flex justify-between items-center">
-                <h3 class="font-black text-white uppercase tracking-widest text-sm">Tambah Cabang Baru</h3>
-                <button @click="showAddBranch = false" class="text-slate-500 hover:text-white transition-colors"><svg class="w-6 h-6 border-2 border-slate-700 rounded-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+<!-- ADD BRANCH MODAL -->
+<div x-show="showAddBranch" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-sm">
+    <div @click.away="showAddBranch = false" class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden transform transition-all" x-transition>
+        <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+            <h3 class="font-black text-white uppercase tracking-widest text-sm">Tambah Cabang Baru</h3>
+            <button @click="showAddBranch = false" class="text-slate-500 hover:text-white transition-colors"><svg class="w-6 h-6 border-2 border-slate-700 rounded-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <form action="{{ route('admin.settings.store-branch') }}" method="POST" class="p-8 space-y-6">
+            @csrf
+            <div>
+                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Nama Cabang</label>
+                <input type="text" name="name" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
             </div>
-            <form action="{{ route('admin.settings.store-branch') }}" method="POST" class="p-8 space-y-6">
-                @csrf
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Telp/WhatsApp</label>
+                    <input type="text" name="phone" placeholder="0812..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Alamat Lengkap</label>
+                    <input type="text" name="address" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
+                </div>
+            </div>
+            <div>
+                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Google Maps <iframe></label>
+                <textarea name="maps_iframe" rows="4" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner"></textarea>
+            </div>
+            <div class="flex justify-end gap-4 mt-8">
+                <button type="button" @click="showAddBranch = false" class="px-6 py-3 rounded-xl text-slate-400 hover:text-white font-black uppercase text-xs">Batal</button>
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-10 py-3 rounded-xl font-black uppercase text-xs shadow-lg shadow-red-500/20">Simpan Cabang</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- EDIT BRANCH MODAL -->
+<div x-show="showEditBranch" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-sm">
+    <div @click.away="showEditBranch = false" class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden transform transition-all" x-transition>
+        <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+            <h3 class="font-black text-white uppercase tracking-widest text-sm">Edit Data Cabang</h3>
+            <button @click="showEditBranch = false" class="text-slate-500 hover:text-white transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <template x-if="editingBranch.id">
+            <form :action="'/admin/settings/branches/' + editingBranch.id" method="POST" class="p-8 space-y-6">
+                @csrf @method('PUT')
                 <div>
                     <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Nama Cabang</label>
-                    <input type="text" name="name" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
+                    <input type="text" name="name" x-model="editingBranch.name" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Telp/WhatsApp</label>
-                        <input type="text" name="phone" placeholder="0812..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
+                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Telp/WA</label>
+                        <input type="text" name="phone" x-model="editingBranch.phone" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
                     </div>
                     <div>
                         <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Alamat Lengkap</label>
-                        <input type="text" name="address" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
+                        <input type="text" name="address" x-model="editingBranch.address" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
                     </div>
                 </div>
                 <div>
                     <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Google Maps <iframe></label>
-                    <textarea name="maps_iframe" rows="4" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner"></textarea>
+                    <textarea name="maps_iframe" x-model="editingBranch.maps_iframe" rows="4" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 shadow-inner"></textarea>
                 </div>
                 <div class="flex justify-end gap-4 mt-8">
-                    <button type="button" @click="showAddBranch = false" class="px-6 py-3 rounded-xl text-slate-400 hover:text-white font-black uppercase text-xs">Batal</button>
-                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-10 py-3 rounded-xl font-black uppercase text-xs shadow-lg shadow-red-500/20">Simpan Cabang</button>
+                    <button type="button" @click="showEditBranch = false" class="px-6 py-3 rounded-xl text-slate-400 hover:text-white font-black uppercase text-xs font-black">Batal</button>
+                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-10 py-3 rounded-xl font-black uppercase text-xs shadow-lg shadow-red-500/20">Update Cabang</button>
                 </div>
             </form>
-        </div>
-    </div>
-
-    <!-- EDIT BRANCH MODAL -->
-    <div x-show="showEditBranch" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-sm">
-        <div @click.away="showEditBranch = false" class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden transform transition-all" x-transition>
-            <div class="p-6 border-b border-slate-700 flex justify-between items-center">
-                <h3 class="font-black text-white uppercase tracking-widest text-sm">Edit Data Cabang</h3>
-                <button @click="showEditBranch = false" class="text-slate-500 hover:text-white transition-colors"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            </div>
-            <template x-if="editingBranch.id">
-                <form :action="'/admin/settings/branches/' + editingBranch.id" method="POST" class="p-8 space-y-6">
-                    @csrf @method('PUT')
-                    <div>
-                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Nama Cabang</label>
-                        <input type="text" name="name" x-model="editingBranch.name" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Telp/WA</label>
-                            <input type="text" name="phone" x-model="editingBranch.phone" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Alamat Lengkap</label>
-                            <input type="text" name="address" x-model="editingBranch.address" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Google Maps <iframe></label>
-                        <textarea name="maps_iframe" x-model="editingBranch.maps_iframe" rows="4" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 shadow-inner"></textarea>
-                    </div>
-                    <div class="flex justify-end gap-4 mt-8">
-                        <button type="button" @click="showEditBranch = false" class="px-6 py-3 rounded-xl text-slate-400 hover:text-white font-black uppercase text-xs font-black">Batal</button>
-                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-10 py-3 rounded-xl font-black uppercase text-xs shadow-lg shadow-red-500/20">Update Cabang</button>
-                    </div>
-                </form>
-            </template>
-        </div>
-    </div>
-
-    <!-- ADD SOCIAL MODAL -->
-    <div x-show="showAddSocial" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-sm">
-        <div @click.away="showAddSocial = false" class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden transform transition-all" x-transition>
-            <div class="p-6 border-b border-slate-700 flex justify-between items-center">
-                <h3 class="font-black text-white uppercase tracking-widest text-sm text-center">Tambah Media Sosial</h3>
-                <button @click="showAddSocial = false" class="text-slate-500 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            </div>
-            <form action="{{ route('admin.settings.store-social') }}" method="POST" class="p-8 space-y-6">
-                @csrf
-                <div>
-                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Platform (Instagram, Facebook, etc)</label>
-                    <input type="text" name="platform" required placeholder="Contoh: Instagram" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">URL Profil Lengkap</label>
-                    <input type="url" name="url" required placeholder="https://..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
-                </div>
-                <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-black py-4 rounded-xl uppercase text-xs shadow-lg transition-all mt-4 tracking-widest">Tambahkan Link</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- EDIT SOCIAL MODAL -->
-    <div x-show="showEditSocial" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-sm">
-        <div @click.away="showEditSocial = false" class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden transform transition-all" x-transition>
-            <div class="p-6 border-b border-slate-700 flex justify-between items-center">
-                <h3 class="font-black text-white uppercase tracking-widest text-sm">Edit Media Sosial</h3>
-                <button @click="showEditSocial = false" class="text-slate-500 hover:text-white"><svg class="w-6 h-6 border-2 border-slate-700 rounded-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-            </div>
-            <template x-if="editingSocial.id">
-                <form :action="'/admin/settings/social/' + editingSocial.id" method="POST" class="p-8 space-y-6">
-                    @csrf @method('PUT')
-                    <div>
-                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Platform</label>
-                        <input type="text" name="platform" x-model="editingSocial.platform" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">URL Profil</label>
-                        <input type="url" name="url" x-model="editingSocial.url" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
-                    </div>
-                    <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-black py-4 rounded-xl uppercase text-xs shadow-lg transition-all tracking-widest">Update Link</button>
-                </form>
-            </template>
-        </div>
+        </template>
     </div>
 </div>
+
+<!-- ADD SOCIAL MODAL -->
+<div x-show="showAddSocial" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-sm">
+    <div @click.away="showAddSocial = false" class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden transform transition-all" x-transition>
+        <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+            <h3 class="font-black text-white uppercase tracking-widest text-sm text-center">Tambah Media Sosial</h3>
+            <button @click="showAddSocial = false" class="text-slate-500 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <form action="{{ route('admin.settings.store-social') }}" method="POST" class="p-8 space-y-6">
+            @csrf
+            <div>
+                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Platform (Instagram, Facebook, etc)</label>
+                <input type="text" name="platform" required placeholder="Contoh: Instagram" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
+            </div>
+            <div>
+                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">URL Profil Lengkap</label>
+                <input type="url" name="url" required placeholder="https://..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
+            </div>
+            <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-black py-4 rounded-xl uppercase text-xs shadow-lg transition-all mt-4 tracking-widest">Tambahkan Link</button>
+        </form>
+    </div>
+</div>
+
+<!-- EDIT SOCIAL MODAL -->
+<div x-show="showEditSocial" x-cloak class="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-sm">
+    <div @click.away="showEditSocial = false" class="bg-slate-800 border border-slate-700 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden transform transition-all" x-transition>
+        <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+            <h3 class="font-black text-white uppercase tracking-widest text-sm">Edit Media Sosial</h3>
+            <button @click="showEditSocial = false" class="text-slate-500 hover:text-white"><svg class="w-6 h-6 border-2 border-slate-700 rounded-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <template x-if="editingSocial.id">
+            <form :action="'/admin/settings/social/' + editingSocial.id" method="POST" class="p-8 space-y-6">
+                @csrf @method('PUT')
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Platform</label>
+                    <input type="text" name="platform" x-model="editingSocial.platform" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">URL Profil</label>
+                    <input type="url" name="url" x-model="editingSocial.url" required class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner">
+                </div>
+                <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-black py-4 rounded-xl uppercase text-xs shadow-lg transition-all tracking-widest">Update Link</button>
+            </form>
+        </template>
+    </div>
+</div>
+
 @endsection
