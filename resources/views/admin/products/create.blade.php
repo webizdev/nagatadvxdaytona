@@ -16,6 +16,17 @@
             };
             reader.readAsDataURL(files[i]);
         }
+    },
+
+    handleMainImage(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                this.mainPreview = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
     }
 }">
     <div class="mb-6">
@@ -118,6 +129,7 @@
                         
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all backdrop-blur-sm">
                             <label for="image" class="cursor-pointer bg-red-500 hover:bg-black text-white px-4 py-2 rounded-lg font-black text-[9px] uppercase tracking-[0.2em] shadow-2xl transition-all hover:scale-110">Pilih Foto</label>
+                            <input type="file" name="image" id="image" class="hidden" accept="image/*" @change="handleMainImage">
                         </div>
                     </div>
                 </div>
