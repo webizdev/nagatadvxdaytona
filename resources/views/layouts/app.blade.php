@@ -6,9 +6,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @php
-        $pageTitle = View::hasSection('meta_title') ? View::getSection('meta_title') : (View::hasSection('title') ? View::getSection('title') . ' - ' . config('app.name', 'Nagata Daytona') : config('app.name', 'Nagata Daytona') . ' - Racing Performance Parts');
+        $siteName = $webSettings['site_name'] ?? config('app.name', 'Nagata Daytona');
+        $pageTitle = View::hasSection('meta_title') ? View::getSection('meta_title') : (View::hasSection('title') ? View::getSection('title') . ' - ' . $siteName : $siteName . ' - Racing Performance Parts');
         $metaDesc = View::hasSection('meta_description') ? View::getSection('meta_description') : 'Penyedia komponen racing performa tinggi kelas dunia. Kami menghadirkan teknologi lintasan balap ke genggaman Anda untuk performa mesin yang tak tertandingi.';
-        $metaImage = View::hasSection('meta_image') ? View::getSection('meta_image') : asset('logo.png');
+        $metaImage = View::hasSection('meta_image') ? View::getSection('meta_image') : ($webSettings['site_logo'] ? asset('storage/' . $webSettings['site_logo']) : asset('logo.png'));
         $metaUrl = View::hasSection('meta_url') ? View::getSection('meta_url') : request()->url();
     @endphp
 
@@ -58,7 +59,13 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="/" class="flex items-center space-x-2">
-                        <span class="text-2xl font-extrabold text-white tracking-tighter uppercase italic">NAGATA <span class="text-daytona-navy">DAYTONA</span></span>
+                        @if(!empty($webSettings['site_logo']))
+                            <img src="{{ asset('storage/' . $webSettings['site_logo']) }}" alt="{{ $webSettings['site_name'] ?? 'Logo' }}" class="h-10 w-auto">
+                        @else
+                            <span class="text-2xl font-extrabold text-white tracking-tighter uppercase italic">
+                                {{ $webSettings['site_name'] ?? 'NAGATA DAYTONA' }}
+                            </span>
+                        @endif
                     </a>
                 </div>
 
@@ -154,23 +161,26 @@
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
                 <!-- Brand & Description -->
                 <div class="md:col-span-5 space-y-8">
-                    <h2 class="text-4xl font-black italic tracking-tighter uppercase italic">NAGATA <span class="text-daytona-orange">DAYTONA</span></h2>
+                    <h2 class="text-4xl font-black italic tracking-tighter uppercase italic">{{ $webSettings['site_name'] ?? 'NAGATA DAYTONA' }}</h2>
                     <p class="text-slate-400 text-base leading-relaxed max-w-md font-medium">
                         Penyedia komponen racing performa tinggi kelas dunia. Kami menghadirkan teknologi lintasan balap ke genggaman Anda untuk performa mesin yang tak tertandingi secara global.
                     </p>
                     <div class="flex space-x-3 pt-2">
-                        <a href="#" class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#1877F2] hover:border-[#1877F2] transition-all" title="Facebook">
-                            <i class="fa-brands fa-facebook-f text-lg"></i>
+                        @foreach($socials as $social)
+                        @php
+                            $iconClass = 'fa-link';
+                            $platform = strtolower($social->platform);
+                            if (str_contains($platform, 'facebook')) $iconClass = 'fa-facebook-f';
+                            elseif (str_contains($platform, 'instagram')) $iconClass = 'fa-instagram';
+                            elseif (str_contains($platform, 'whatsapp')) $iconClass = 'fa-whatsapp';
+                            elseif (str_contains($platform, 'twitter') || str_contains($platform, 'x')) $iconClass = 'fa-x-twitter';
+                            elseif (str_contains($platform, 'youtube')) $iconClass = 'fa-youtube';
+                            elseif (str_contains($platform, 'tiktok')) $iconClass = 'fa-tiktok';
+                        @endphp
+                        <a href="{{ $social->url }}" target="_blank" class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-daytona-orange hover:border-daytona-orange transition-all" title="{{ $social->platform }}">
+                            <i class="fa-brands {{ $iconClass }} text-lg"></i>
                         </a>
-                        <a href="#" class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-gradient-to-tr hover:from-[#F58529] hover:via-[#DD2A7B] hover:to-[#8134AF] hover:border-transparent transition-all" title="Instagram">
-                            <i class="fa-brands fa-instagram text-xl"></i>
-                        </a>
-                        <a href="#" class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#25D366] hover:border-[#25D366] transition-all" title="WhatsApp">
-                            <i class="fa-brands fa-whatsapp text-xl"></i>
-                        </a>
-                        <a href="#" class="w-11 h-11 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-black hover:border-white/30 transition-all" title="X (Twitter)">
-                            <i class="fa-brands fa-x-twitter text-lg"></i>
-                        </a>
+                        @endforeach
                     </div>
                 </div>
 
@@ -194,14 +204,24 @@
                             <span class="p-2 bg-white/5 rounded-lg text-daytona-orange border border-white/10 shrink-0">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </span>
-                            <span class="pt-1">Jakarta Selatan, Indonesia <br>Jl. Gatot Subroto Kav. 123</span>
+                            <span class="pt-1">{!! nl2br(e($webSettings['address'] ?? 'Jakarta Selatan, Indonesia')) !!}</span>
                         </li>
+                        @if(!empty($webSettings['whatsapp']))
                         <li class="flex items-center space-x-4 text-sm text-slate-400 font-medium">
                             <span class="p-2 bg-white/5 rounded-lg text-daytona-orange border border-white/10 shrink-0">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
                             </span>
-                            <span>+62 21 1234 5678</span>
+                            <span>{{ $webSettings['whatsapp'] }}</span>
                         </li>
+                        @endif
+                        @if(!empty($webSettings['email']))
+                        <li class="flex items-center space-x-4 text-sm text-slate-400 font-medium">
+                            <span class="p-2 bg-white/5 rounded-lg text-daytona-orange border border-white/10 shrink-0">
+                                <i class="fa-regular fa-envelope text-lg"></i>
+                            </span>
+                            <span>{{ $webSettings['email'] }}</span>
+                        </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -209,7 +229,7 @@
             <!-- Copyright -->
             <div class="border-t border-white/5 pt-10 text-center">
                 <p class="text-xs text-slate-500 font-bold uppercase tracking-widest">
-                    &copy; {{ date('Y') }} Nagata Daytona Performance. All Rights Reserved.
+                    &copy; {{ date('Y') }} {{ $webSettings['site_name'] ?? 'Nagata Daytona' }}. All Rights Reserved.
                 </p>
             </div>
         </div>

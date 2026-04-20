@@ -35,7 +35,7 @@
                 </div>
                 <div class="space-y-6 text-slate-500 leading-relaxed text-lg">
                     <p>
-                        Nagata Daytona didirikan dengan satu visi sederhana: menghadirkan teknologi suku cadang mesin berperforma tinggi tingkat lintasan balap ke tangan setiap pengendara yang menginginkan kesempurnaan.
+                        {{ $webSettings['site_name'] ?? 'Nagata Daytona' }} didirikan dengan satu visi sederhana: menghadirkan teknologi suku cadang mesin berperforma tinggi tingkat lintasan balap ke tangan setiap pengendara yang menginginkan kesempurnaan.
                     </p>
                     <p>
                         Berawal dari kecintaan pada dunia otomotif dan teknobiologi mesin, kami menggabungkan keahlian teknik tingkat lanjut dengan material kelas industri penerbangan untuk menciptakan produk yang tidak hanya meningkatkan tenaga, tetapi juga ketahanan mesin dalam kondisi paling ekstrem sekalipun.

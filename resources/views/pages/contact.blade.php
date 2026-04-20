@@ -44,7 +44,7 @@
                         </div>
                         <div>
                             <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Our Office</h4>
-                            <p class="text-slate-900 font-bold leading-tight">Jakarta Selatan, Indonesia<br>Jl. Gatot Subroto Kav. 123</p>
+                            <p class="text-slate-900 font-bold leading-tight">{!! nl2br(e($webSettings['address'] ?? 'Jakarta Selatan, Indonesia')) !!}</p>
                         </div>
                     </div>
 
@@ -55,7 +55,7 @@
                         </div>
                         <div>
                             <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Direct Line</h4>
-                            <p class="text-slate-900 font-bold text-xl leading-tight">+62 21 1234 5678</p>
+                            <p class="text-slate-900 font-bold text-xl leading-tight">{{ $webSettings['whatsapp'] ?? '+62 21 1234 5678' }}</p>
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@
                         </div>
                         <div>
                             <h4 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-1">Email Support</h4>
-                            <p class="text-slate-900 font-bold leading-tight">info@nagatadaytona.com</p>
+                            <p class="text-slate-900 font-bold leading-tight">{{ $webSettings['email'] ?? 'info@nagatadaytona.com' }}</p>
                         </div>
                     </div>
                 </div>
@@ -109,6 +109,10 @@
 
 <!-- Interactive Map -->
 <section class="h-[500px] w-full relative">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.667056952686!2d106.8271106!3d-6.175308299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sNational%20Monument!5e1!3m2!1sen!2sid!4v1776611068769!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    @if(!empty($webSettings['maps_iframe']))
+        {!! $webSettings['maps_iframe'] !!}
+    @else
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.667056952686!2d106.8271106!3d-6.175308299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sNational%20Monument!5e1!3m2!1sen!2sid!4v1776611068769!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    @endif
 </section>
 @endsection

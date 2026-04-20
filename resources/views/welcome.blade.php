@@ -21,7 +21,7 @@
                 PUSH THE <span class="text-daytona-orange">LIMITS</span> <br>OF SPEED
             </h1>
             <p class="text-slate-300 text-base md:text-lg font-medium max-w-lg leading-relaxed pt-2">
-                Nagata Daytona menghadirkan komponen racing premium yang dirancang untuk performa maksimal di lintasan balap dan keandalan di jalan raya.
+                {{ $webSettings['site_name'] ?? 'Nagata Daytona' }} menghadirkan komponen racing premium yang dirancang untuk performa maksimal di lintasan balap dan keandalan di jalan raya.
             </p>
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 pt-10">
                 <a href="{{ route('products.index') }}" class="bg-daytona-orange text-white px-8 py-4 rounded-sm font-black uppercase tracking-widest hover:bg-white hover:text-daytona-orange transition-all duration-300 shadow-2xl flex items-center justify-center w-full sm:w-fit group">
