@@ -55,60 +55,60 @@
     <div class="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden shadow-xl min-h-[500px]">
         
         <!-- IDENTITY TAB -->
-        <div x-show="activeTab === 'identity'" class="p-8 space-y-8" x-cloak>
+        <div x-show="activeTab === 'identity'" class="p-10 lg:p-12 space-y-12" x-cloak>
             <form action="{{ route('admin.settings.update-identity') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                     <!-- Column 1 -->
-                    <div class="space-y-6">
+                    <div class="space-y-10">
                         <div>
-                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Nama Website / Text Logo</label>
-                            <input type="text" name="site_name" value="{{ $settings['site_name'] ?? '' }}" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white focus:ring-red-500 focus:border-red-500 transition-all p-3">
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Nama Website / Text Logo</label>
+                            <input type="text" name="site_name" value="{{ $settings['site_name'] ?? '' }}" class="w-full bg-slate-900 border-slate-700 rounded-2xl text-white focus:ring-red-500 focus:border-red-500 transition-all p-4 shadow-inner">
                         </div>
 
                         <div>
-                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Logo Website</label>
-                            <div class="flex flex-col md:flex-row items-center gap-6 p-6 bg-slate-900 rounded-xl border border-dashed border-slate-700">
-                                <div class="w-32 h-32 bg-slate-800 rounded-lg flex items-center justify-center overflow-hidden border border-slate-700 p-2">
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Logo Website</label>
+                            <div class="flex flex-col md:flex-row items-center gap-8 p-8 bg-slate-900 rounded-2xl border border-dashed border-slate-700">
+                                <div class="w-32 h-32 bg-slate-800 rounded-xl flex items-center justify-center overflow-hidden border border-slate-700 p-4 shadow-inner">
                                     @if(isset($settings['site_logo']) && $settings['site_logo'])
                                         <img src="{{ asset('storage/' . $settings['site_logo']) }}" class="max-w-full max-h-full object-contain">
                                     @else
                                         <svg class="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     @endif
                                 </div>
-                                <div class="flex-1 space-y-2 text-center md:text-left">
-                                    <input type="file" name="site_logo" class="text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-500/10 file:text-red-500 hover:file:bg-red-500 hover:file:text-white transition-all cursor-pointer">
-                                    <p class="text-[10px] text-slate-500 uppercase font-bold tracking-tight">Format: PNG, JPG, SVG. Maks 2MB.</p>
+                                <div class="flex-1 space-y-4 text-center md:text-left">
+                                    <input type="file" name="site_logo" class="text-sm text-slate-400 file:mr-4 file:py-2.5 file:px-6 file:rounded-full file:border-0 file:text-sm file:font-black file:bg-red-500/10 file:text-red-500 hover:file:bg-red-500 hover:file:text-white transition-all cursor-pointer">
+                                    <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Rekomendasi: PNG transparan, Maks 2MB.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">WhatsApp CS</label>
-                                <input type="text" name="whatsapp" value="{{ $settings['whatsapp'] ?? '' }}" placeholder="0812..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white focus:ring-red-500 focus:border-red-500 transition-all p-3">
+                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">WhatsApp CS</label>
+                                <input type="text" name="whatsapp" value="{{ $settings['whatsapp'] ?? '' }}" placeholder="0812..." class="w-full bg-slate-900 border-slate-700 rounded-2xl text-white focus:ring-red-500 focus:border-red-500 transition-all p-4 shadow-inner">
                             </div>
                             <div>
-                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Email</label>
-                                <input type="email" name="email" value="{{ $settings['email'] ?? '' }}" placeholder="info@..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white focus:ring-red-500 focus:border-red-500 transition-all p-3">
+                                <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Email</label>
+                                <input type="email" name="email" value="{{ $settings['email'] ?? '' }}" placeholder="info@..." class="w-full bg-slate-900 border-slate-700 rounded-2xl text-white focus:ring-red-500 focus:border-red-500 transition-all p-4 shadow-inner">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Alamat Utama</label>
-                            <textarea name="address" rows="4" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white focus:ring-red-500 focus:border-red-500 transition-all p-3">{{ $settings['address'] ?? '' }}</textarea>
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Alamat Utama</label>
+                            <textarea name="address" rows="5" class="w-full bg-slate-900 border-slate-700 rounded-2xl text-white focus:ring-red-500 focus:border-red-500 transition-all p-4 shadow-inner leading-relaxed">{{ $settings['address'] ?? '' }}</textarea>
                         </div>
                     </div>
 
                     <!-- Column 2 -->
-                    <div class="space-y-6">
+                    <div class="space-y-10">
                         <div>
-                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2">Google Maps Embed link</label>
-                            <textarea name="maps_iframe" rows="6" placeholder="Paste kode <iframe> di sini..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-xs focus:ring-red-500 focus:border-red-500 transition-all p-3 whitespace-pre">{{ $settings['maps_iframe'] ?? '' }}</textarea>
+                            <label class="block text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Google Maps Embed link</label>
+                            <textarea name="maps_iframe" rows="8" placeholder="Paste kode <iframe> di sini..." class="w-full bg-slate-900 border-slate-700 rounded-2xl text-white font-mono text-xs focus:ring-red-500 focus:border-red-500 transition-all p-4 whitespace-pre shadow-inner">{{ $settings['maps_iframe'] ?? '' }}</textarea>
                         </div>
-                        <div class="p-6 bg-slate-900 rounded-xl border border-slate-700">
-                            <p class="text-xs text-slate-500 mb-4 uppercase tracking-widest font-black">Main Map Preview</p>
-                            <div class="aspect-video rounded-lg overflow-hidden bg-slate-800 flex items-center justify-center border border-slate-700 shadow-inner">
+                        <div class="p-8 bg-slate-900 rounded-2xl border border-slate-700">
+                            <p class="text-xs text-slate-500 mb-6 uppercase tracking-widest font-black">Main Map Preview</p>
+                            <div class="aspect-video rounded-2xl overflow-hidden bg-slate-800 flex items-center justify-center border border-slate-700 shadow-2xl">
                                 @if(isset($settings['maps_iframe']) && $settings['maps_iframe'])
                                     <div class="w-full h-full [&>iframe]:w-full [&>iframe]:h-full border-0">
                                         {!! $settings['maps_iframe'] !!}
