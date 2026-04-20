@@ -13,7 +13,7 @@
             <span class="text-xs font-bold text-green-500">+12%</span>
         </div>
         <p class="text-slate-400 text-sm font-medium">Total Kategori</p>
-        <h3 class="text-3xl font-bold mt-1">24</h3>
+        <h3 class="text-3xl font-bold mt-1 text-white">{{ number_format($totalCategories) }}</h3>
     </div>
 
     <!-- Stat Card 2 -->
@@ -25,7 +25,7 @@
             <span class="text-xs font-bold text-green-500">+5%</span>
         </div>
         <p class="text-slate-400 text-sm font-medium">Total Produk</p>
-        <h3 class="text-3xl font-bold mt-1">128</h3>
+        <h3 class="text-3xl font-bold mt-1 text-white">{{ number_format($totalProducts) }}</h3>
     </div>
 
     <!-- Stat Card 3 -->
@@ -37,7 +37,7 @@
             <span class="text-xs font-bold text-slate-500">Static</span>
         </div>
         <p class="text-slate-400 text-sm font-medium">Total Suku Cadang</p>
-        <h3 class="text-3xl font-bold mt-1">1,024</h3>
+        <h3 class="text-3xl font-bold mt-1 text-white">{{ number_format($totalMotorcycles) }}</h3>
     </div>
 </div>
 
