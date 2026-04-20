@@ -9,7 +9,7 @@
         $siteName = $webSettings['site_name'] ?? config('app.name', 'Nagata Daytona');
         $pageTitle = View::hasSection('meta_title') ? View::getSection('meta_title') : (View::hasSection('title') ? View::getSection('title') . ' - ' . $siteName : $siteName . ' - Racing Performance Parts');
         $metaDesc = View::hasSection('meta_description') ? View::getSection('meta_description') : 'Penyedia komponen racing performa tinggi kelas dunia. Kami menghadirkan teknologi lintasan balap ke genggaman Anda untuk performa mesin yang tak tertandingi.';
-        $metaImage = View::hasSection('meta_image') ? View::getSection('meta_image') : ($webSettings['site_logo'] ? asset('storage/' . $webSettings['site_logo']) : asset('logo.png'));
+        $metaImage = View::hasSection('meta_image') ? View::getSection('meta_image') : (!empty($webSettings['site_logo']) ? asset('storage/' . $webSettings['site_logo']) : asset('logo.png'));
         $metaUrl = View::hasSection('meta_url') ? View::getSection('meta_url') : request()->url();
     @endphp
 
@@ -163,7 +163,7 @@
                 <div class="md:col-span-5 space-y-8">
                     <h2 class="text-4xl font-black italic tracking-tighter uppercase italic">{{ $webSettings['site_name'] ?? 'NAGATA DAYTONA' }}</h2>
                     <p class="text-slate-400 text-base leading-relaxed max-w-md font-medium">
-                        Penyedia komponen racing performa tinggi kelas dunia. Kami menghadirkan teknologi lintasan balap ke genggaman Anda untuk performa mesin yang tak tertandingi secara global.
+                        {{ $webSettings['site_description'] ?? 'Penyedia komponen racing performa tinggi kelas dunia. Kami menghadirkan teknologi lintasan balap ke genggaman Anda untuk performa mesin yang tak tertandingi secara global.' }}
                     </p>
                     <div class="flex space-x-3 pt-2">
                         @foreach($socials as $social)
