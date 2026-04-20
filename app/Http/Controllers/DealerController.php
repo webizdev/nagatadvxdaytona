@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dealer;
+use App\Models\Branch;
 use Illuminate\Http\Request;
 
 class DealerController extends Controller
@@ -12,8 +12,8 @@ class DealerController extends Controller
      */
     public function index()
     {
-        // Get all dealers and group them by city
-        $dealersByCity = Dealer::all()->groupBy('kota');
+        // Get all branches (lokasi dealer) and group them by city (name field)
+        $dealersByCity = Branch::all()->groupBy('name');
 
         return view('dealers.index', compact('dealersByCity'));
     }

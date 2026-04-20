@@ -261,7 +261,12 @@
                 </div>
             </div>
             <div>
-                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Link Maps (Iframe)</label>
+                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Link Google Maps (URL Direct)</label>
+                <input type="url" name="maps_url" placeholder="https://maps.google.com/..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner">
+                <p class="text-[9px] text-slate-500 mt-1 italic">* Digunakan untuk tautan pada ikon peta</p>
+            </div>
+            <div>
+                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Iframe Google Maps (Embed)</label>
                 <textarea name="maps_iframe" rows="4" placeholder="Tempel kode <iframe> dari Google Maps di sini" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 focus:ring-red-500 focus:border-red-500 transition-all shadow-inner"></textarea>
             </div>
             <div class="flex justify-end gap-4 mt-8">
@@ -297,7 +302,11 @@
                     </div>
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Link Maps (Iframe)</label>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Link Google Maps (URL Direct)</label>
+                    <input type="url" name="maps_url" x-model="editingBranch.maps_url" placeholder="https://maps.google.com/..." class="w-full bg-slate-900 border-slate-700 rounded-xl text-white p-3 shadow-inner focus:ring-red-500 focus:border-red-500 transition-all">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[.2em] mb-2">Iframe Google Maps (Embed)</label>
                     <textarea name="maps_iframe" x-model="editingBranch.maps_iframe" rows="4" class="w-full bg-slate-900 border-slate-700 rounded-xl text-white font-mono text-[10px] p-3 shadow-inner"></textarea>
                 </div>
                 <div class="flex justify-end gap-4 mt-8">

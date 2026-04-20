@@ -58,6 +58,7 @@ class SettingController extends Controller
             'address' => 'required|string',
             'phone' => 'nullable|string',
             'maps_iframe' => 'nullable|string',
+            'maps_url' => 'nullable|string',
         ]);
 
         Branch::create($data);
