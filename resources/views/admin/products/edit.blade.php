@@ -289,11 +289,11 @@
                     </table>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <button type="button" @click="addRow()" class="w-full py-4 bg-slate-900 border border-slate-700 rounded-xl text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-white hover:border-slate-500 transition-all flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Tambah Baris Spesifikasi
+                    <button type="button" @click="addRow()" class="w-full py-4 bg-slate-900 border border-slate-700 rounded-xl text-[10px] font-black text-slate-400 uppercase tracking-widest hover:bg-red-500 hover:text-white hover:border-red-500 transition-all flex items-center justify-center gap-2 group shadow-lg">
+                        <svg class="w-4 h-4 text-slate-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Tambah Baris Spesifikasi
                     </button>
-                    <button type="button" @click="addCol()" class="w-full py-4 bg-slate-900 border border-slate-700 rounded-xl text-[10px] font-black text-slate-500 uppercase tracking-widest hover:text-white hover:border-slate-500 transition-all flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Tambah Kolom Spesifikasi
+                    <button type="button" @click="addCol()" class="w-full py-4 bg-slate-900 border border-slate-700 rounded-xl text-[10px] font-black text-slate-400 uppercase tracking-widest hover:bg-red-500 hover:text-white hover:border-red-500 transition-all flex items-center justify-center gap-2 group shadow-lg">
+                        <svg class="w-4 h-4 text-slate-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg> Tambah Kolom Spesifikasi
                     </button>
                 </div>
             </div>
