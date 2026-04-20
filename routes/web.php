@@ -35,6 +35,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
         // Social Media
         Route::post('/social', [\App\Http\Controllers\Admin\SettingController::class, 'storeSocial'])->name('store-social');
+        Route::put('/social/{social}', [\App\Http\Controllers\Admin\SettingController::class, 'updateSocial'])->name('update-social');
         Route::delete('/social/{social}', [\App\Http\Controllers\Admin\SettingController::class, 'destroySocial'])->name('destroy-social');
     });
 });

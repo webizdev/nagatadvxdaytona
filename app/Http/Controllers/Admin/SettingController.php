@@ -95,6 +95,17 @@ class SettingController extends Controller
         return back()->with('success', 'Media sosial berhasil ditambahkan.');
     }
 
+    public function updateSocial(Request $request, SocialMedia $social)
+    {
+        $data = $request->validate([
+            'platform' => 'required|string',
+            'url' => 'required|url',
+        ]);
+
+        $social->update($data);
+        return back()->with('success', 'Media sosial berhasil diperbarui.');
+    }
+
     public function destroySocial(SocialMedia $social)
     {
         $social->delete();
