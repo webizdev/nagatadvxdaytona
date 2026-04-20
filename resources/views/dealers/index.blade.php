@@ -52,7 +52,16 @@
                                     </div>
                                     <!-- Prominent Map Link -->
                                     @php
-                                        $mapLink = $branch->maps_url ?: "https://maps.google.com/?q=" . urlencode("Nagata Daytona " . $branch->address . " " . $city);
+                                        // Cek apakah maps_url diisi, jika tidak cek apakah maps_iframe berisi link (bukan tag <iframe>)
+                                        $mapLink = $branch->maps_url;
+                                        if (!$mapLink && $branch->maps_iframe && (str_contains($branch->maps_iframe, 'http') && !str_contains($branch->maps_iframe, '<iframe'))) {
+                                            $mapLink = trim($branch->maps_iframe);
+                                        }
+                                        
+                                        // Fallback terakhir: search query berdasarkan nama & alamat
+                                        if (!$mapLink) {
+                                            $mapLink = "https://maps.google.com/?q=" . urlencode("Nagata Daytona " . $branch->address . " " . $city);
+                                        }
                                     @endphp
                                     <a href="{{ $mapLink }}" target="_blank" title="Buka di Peta"
                                        class="shrink-0 p-2.5 bg-daytona-orange text-white rounded-full shadow-md hover:bg-daytona-navy hover:scale-110 hover:-translate-y-1 transition-all duration-300">
@@ -75,20 +84,6 @@
                                             </svg>
                                             Chat WhatsApp
                                         </a>
-
-                                        @if($branch->maps_iframe)
-                                            <button @click="window.openDetails($branch->id)" class="text-[10px] text-daytona-orange font-bold hover:underline">
-                                                Lihat Peta
-                                            </button>
-                                        @endif
-                                    </div>
-                                @endif
-                                
-                                @if($branch->maps_iframe)
-                                    <div class="mt-4 hidden lg:block overflow-hidden rounded-lg border border-slate-100">
-                                        <div class="aspect-video w-full scale-110 opacity-70 group-hover:opacity-100 group-hover:scale-100 transition-all duration-700">
-                                            {!! $branch->maps_iframe !!}
-                                        </div>
                                     </div>
                                 @endif
                             </div>
