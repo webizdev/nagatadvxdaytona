@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\WebsiteSetting;
 use App\Models\SocialMedia;
 use App\Models\Branch;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
+
         // Share website settings, social media, branches, and web content with all views
         View::composer('*', function ($view) {
             $settings = WebsiteSetting::all()->pluck('value', 'key');

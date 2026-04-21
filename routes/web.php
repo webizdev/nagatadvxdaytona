@@ -46,6 +46,16 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     // Universal Content Manager
     Route::get('/content', [\App\Http\Controllers\Admin\WebContentController::class, 'index'])->name('content.index');
     Route::post('/content', [\App\Http\Controllers\Admin\WebContentController::class, 'update'])->name('content.update');
+
+    // System Utilities
+    Route::get('/system/storage-link', function () {
+        try {
+            \Illuminate\Support\Facades\Artisan::call('storage:link');
+            return "Storage link created successfully!";
+        } catch (\Exception $e) {
+            return "Error: " . $e->getMessage();
+        }
+    })->name('system.storage-link');
 });
 
 // Profile Routes (from Breeze)
