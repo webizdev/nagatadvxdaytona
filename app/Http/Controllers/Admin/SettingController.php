@@ -50,6 +50,18 @@ class SettingController extends Controller
         return back()->with('success', 'Identitas website berhasil diperbarui.');
     }
 
+    public function deleteLogo()
+    {
+        $oldLogo = WebsiteSetting::get('site_logo');
+        if ($oldLogo && Storage::disk('public')->exists($oldLogo)) {
+            Storage::disk('public')->delete($oldLogo);
+        }
+
+        WebsiteSetting::set('site_logo', null);
+
+        return back()->with('success', 'Logo website berhasil dihapus.');
+    }
+
     // --- Branch Methods ---
     public function storeBranch(Request $request)
     {

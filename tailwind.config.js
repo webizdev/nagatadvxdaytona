@@ -12,8 +12,12 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Outfit', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'daytona-orange': '#EC6624',
+                'daytona-navy': '#2D2A4A',
+            }
         },
     },
 

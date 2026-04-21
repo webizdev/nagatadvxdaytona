@@ -1,0 +1,32 @@
+CATATAN PENTING: LOCALHOST VS LIVE HOSTING (LARAVEL)
+===================================================
+
+1. FILE .ENV (KONFIGURASI)
+   - Local: Gunakan DB_DATABASE lokal dan APP_DEBUG=true.
+   - Hosting: Gunakan DB_DATABASE server dan APP_DEBUG=false.
+   - PERHATIAN: Jangan pernah push file .env ke GitHub! (Pastikan ada di .gitignore).
+
+2. URL & ASSETS (APP_URL)
+   - JANGAN hard-code URL seperti "http://localhost:8000/..." di dalam kode.
+   - SELALU gunakan helper Laravel: asset(), route(), atau url().
+   - Sesuaikan APP_URL di .env hosting dengan domain asli (misal: https://nagatadvxdaytona.com).
+
+3. PENAMAAN FILE (CASE-SENSITIVITY)
+   - Windows (Local) TIDAK sensitif huruf besar/kecil.
+   - Linux (Hosting) SANGAT sensitif.
+   - ATURAN: Nama file Controller, Model, dan View harus persis sama besar-kecilnya dengan yang dipanggil di kode.
+
+4. FOLDER STORAGE (MEDIA/GAMBAR)
+   - Link storage di localhost tidak terbawa ke hosting.
+   - SOLUSI: Setelah deploy ke hosting, jalankan perintah: 
+     php artisan storage:link
+
+5. COMPILED ASSETS (VITE/NPM)
+   - Jika ada perubahan CSS/JS, jalankan: npm run build
+   - Pastikan folder 'public/build' ikut terunggah atau tersedia di hosting.
+
+6. DATABASE MIGRATION
+   - Di local: php artisan migrate
+   - Di hosting: Anda perlu menjalankan migrate ulang di server (biasanya via terminal/SSH atau import SQL manual).
+
+Tips: Selalu cek log di folder 'storage/logs/laravel.log' jika terjadi Error 500 setelah deploy.

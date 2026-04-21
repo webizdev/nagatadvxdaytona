@@ -45,10 +45,6 @@
     
     <style>
         body { font-family: 'Outfit', sans-serif; }
-        .bg-daytona-orange { background-color: #EC6624; }
-        .text-daytona-orange { color: #EC6624; }
-        .border-daytona-orange { border-color: #EC6624; }
-        .bg-daytona-navy { background-color: #2D2A4A; }
     </style>
 </head>
 <body class="bg-white text-slate-800 antialiased overflow-x-hidden">
@@ -200,26 +196,54 @@
                 <div class="md:col-span-4 space-y-8">
                     <h3 class="text-xl font-bold uppercase tracking-widest border-l-4 border-daytona-orange pl-4 leading-none">Contact Us</h3>
                     <ul class="space-y-6">
-                        <li class="flex items-start space-x-4 text-sm text-slate-400 font-medium">
-                            <span class="p-2 bg-white/5 rounded-lg text-daytona-orange border border-white/10 shrink-0">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            </span>
-                            <span class="pt-1">{!! nl2br(e($webSettings['address'] ?? 'Jakarta Selatan, Indonesia')) !!}</span>
+                        <!-- Alamat -->
+                        <li class="flex items-start space-x-4">
+                            <a href="https://maps.google.com/?q={{ urlencode($webSettings['address'] ?? 'Jakarta Selatan, Indonesia') }}" target="_blank" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-daytona-orange border border-white/10 shrink-0 mt-0.5 hover:bg-daytona-orange hover:text-white hover:border-daytona-orange transition-all">
+                                <i class="fa-solid fa-location-dot text-lg"></i>
+                            </a>
+                            <div class="flex-1">
+                                <p class="text-[10px] font-black uppercase tracking-[0.2em] text-daytona-orange mb-1">Alamat Kantor</p>
+                                <a href="https://maps.google.com/?q={{ urlencode($webSettings['address'] ?? 'Jakarta Selatan, Indonesia') }}" target="_blank" class="text-sm text-slate-300 font-medium leading-relaxed hover:text-daytona-orange transition-colors">
+                                    {!! nl2br(e($webSettings['address'] ?? 'Jakarta Selatan, Indonesia')) !!}
+                                </a>
+                            </div>
                         </li>
+
+                        <!-- WhatsApp / CS -->
                         @if(!empty($webSettings['whatsapp']))
-                        <li class="flex items-center space-x-4 text-sm text-slate-400 font-medium">
-                            <span class="p-2 bg-white/5 rounded-lg text-daytona-orange border border-white/10 shrink-0">
+                        @php
+                            $waFooter = preg_replace('/[^0-9]/', '', $webSettings['whatsapp']);
+                            if (str_starts_with($waFooter, '0')) {
+                                $waFooter = '62' . substr($waFooter, 1);
+                            } elseif (!str_starts_with($waFooter, '62')) {
+                                $waFooter = '62' . $waFooter;
+                            }
+                        @endphp
+                        <li class="flex items-start space-x-4">
+                            <a href="https://wa.me/{{ $waFooter }}" target="_blank" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-daytona-orange border border-white/10 shrink-0 mt-0.5 hover:bg-daytona-orange hover:text-white hover:border-daytona-orange transition-all">
                                 <i class="fa-brands fa-whatsapp text-xl"></i>
-                            </span>
-                            <span>{{ $webSettings['whatsapp'] }}</span>
+                            </a>
+                            <div class="flex-1">
+                                <p class="text-[10px] font-black uppercase tracking-[0.2em] text-daytona-orange mb-1">Customer Service</p>
+                                <a href="https://wa.me/{{ $waFooter }}" target="_blank" class="text-sm text-slate-300 font-bold tracking-wider hover:text-daytona-orange transition-colors">
+                                    {{ $webSettings['whatsapp'] }}
+                                </a>
+                            </div>
                         </li>
                         @endif
+
+                        <!-- Email -->
                         @if(!empty($webSettings['email']))
-                        <li class="flex items-center space-x-4 text-sm text-slate-400 font-medium">
-                            <span class="p-2 bg-white/5 rounded-lg text-daytona-orange border border-white/10 shrink-0">
-                                <i class="fa-regular fa-envelope text-lg"></i>
-                            </span>
-                            <span>{{ $webSettings['email'] }}</span>
+                        <li class="flex items-start space-x-4">
+                            <a href="mailto:{{ $webSettings['email'] }}" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-daytona-orange border border-white/10 shrink-0 mt-0.5 hover:bg-daytona-orange hover:text-white hover:border-daytona-orange transition-all">
+                                <i class="fa-solid fa-envelope text-lg"></i>
+                            </a>
+                            <div class="flex-1">
+                                <p class="text-[10px] font-black uppercase tracking-[0.2em] text-daytona-orange mb-1">Email Support</p>
+                                <a href="mailto:{{ $webSettings['email'] }}" class="text-sm text-slate-300 font-medium hover:text-daytona-orange transition-colors">
+                                    {{ $webSettings['email'] }}
+                                </a>
+                            </div>
                         </li>
                         @endif
                     </ul>

@@ -8,28 +8,28 @@
     <!-- Background Image / Overlay -->
     <div class="absolute inset-0 z-0">
         <div class="absolute inset-0 bg-gradient-to-r from-daytona-navy to-transparent z-10 opacity-90"></div>
-        <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover" alt="Racing Background">
+        <img src="{{ $webContents['home_hero_image'] ?? 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=2000' }}" class="w-full h-full object-cover" alt="Racing Background">
     </div>
 
     <!-- Hero Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
         <div class="max-w-2xl space-y-6">
             <h2 class="text-daytona-orange font-black uppercase tracking-[0.3em] text-sm md:text-base animate-fade-in-down">
-                Ultimate Performance Division
+                {!! $webContents['home_hero_subtitle'] ?? 'Ultimate Performance Division' !!}
             </h2>
-            <h1 class="text-white text-5xl md:text-8xl font-black italic tracking-tighter leading-[0.9] uppercase">
-                PUSH THE <span class="text-daytona-orange">LIMITS</span> <br>OF SPEED
+            <h1 class="text-white text-5xl md:text-8xl font-black italic tracking-tighter leading-[0.05] md:leading-[0.9] uppercase">
+                {!! $webContents['home_hero_title'] ?? 'PUSH THE <span class="text-daytona-orange">LIMITS</span> <br>OF SPEED' !!}
             </h1>
             <p class="text-slate-300 text-base md:text-lg font-medium max-w-lg leading-relaxed pt-2">
-                {{ $webSettings['site_name'] ?? 'Nagata Daytona' }} menghadirkan komponen racing premium yang dirancang untuk performa maksimal di lintasan balap dan keandalan di jalan raya.
+                {{ $webContents['home_hero_description'] ?? ($webSettings['site_name'] ?? 'Nagata Daytona') . ' menghadirkan komponen racing premium yang dirancang untuk performa maksimal di lintasan balap dan keandalan di jalan raya.' }}
             </p>
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 pt-10">
                 <a href="{{ route('products.index') }}" class="bg-daytona-orange text-white px-8 py-4 rounded-sm font-black uppercase tracking-widest hover:bg-white hover:text-daytona-orange transition-all duration-300 shadow-2xl flex items-center justify-center w-full sm:w-fit group">
-                    Cek Produk
+                    {{ $webContents['home_hero_cta_products'] ?? 'Cek Produk' }}
                     <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                 </a>
                 <a href="{{ route('about') }}" class="border-2 border-white/30 text-white px-8 py-4 rounded-sm font-black uppercase tracking-widest hover:bg-white/10 transition-all duration-300 flex items-center justify-center w-full sm:w-fit">
-                    Tentang Kami
+                    {{ $webContents['home_hero_cta_about'] ?? 'Tentang Kami' }}
                 </a>
             </div>
         </div>
@@ -48,14 +48,15 @@
             <div class="lg:w-72 xl:w-80 shrink-0 text-center lg:text-left">
                 <div class="inline-flex items-center gap-2 mb-4">
                     <div class="w-1.5 h-6 bg-slate-500 rounded-full"></div>
-                    <span class="text-slate-400 font-black uppercase tracking-[0.3em] text-[10px]">Quick Filter</span>
+                    <span class="text-slate-400 font-black uppercase tracking-[0.3em] text-[10px]">
+                        {{ $webContents['home_filter_subtitle'] ?? 'Quick Filter' }}
+                    </span>
                 </div>
                 <h2 class="text-slate-200 text-2xl md:text-3xl font-black italic uppercase tracking-tighter leading-tight">
-                    Cari Part untuk<br>
-                    <span class="text-slate-400">Motor Anda</span>
+                    {!! $webContents['home_filter_title'] ?? 'Cari Part untuk<br><span class="text-slate-400">Motor Anda</span>' !!}
                 </h2>
                 <p class="text-slate-500 text-xs mt-3 font-medium leading-relaxed">
-                    Pilih merk &amp; model, temukan semua suku cadang yang kompatibel.
+                    {{ $webContents['home_filter_desc'] ?? 'Pilih merk & model, temukan semua suku cadang yang kompatibel.' }}
                 </p>
             </div>
 
@@ -74,32 +75,38 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="space-y-6 p-10 bg-slate-50 border-b-4 border-daytona-orange group hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-2xl">
-                <div class="bg-daytona-orange/10 p-4 rounded-full w-fit text-daytona-orange group-hover:bg-daytona-orange group-hover:text-white transition-colors">
+                <div class="bg-daytona-orange/10 p-4 rounded-full w-fit text-daytona-orange group-hover:bg-daytona-orange group-hover:text-white transition-all duration-300">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 </div>
-                <h3 class="text-2xl font-black uppercase italic tracking-tighter leading-none">Maximum Power</h3>
+                <h3 class="text-2xl font-black uppercase italic tracking-tighter leading-none group-hover:text-daytona-orange transition-colors">
+                    {{ $webContents['home_features_power_title'] ?? 'Maximum Power' }}
+                </h3>
                 <p class="text-slate-500 text-sm leading-relaxed">
-                    Dirancang untuk meningkatkan output daya mesin Anda secara signifikan dengan presisi yang tinggi melalui teknologi aliran udara optimal.
+                    {{ $webContents['home_features_power_desc'] ?? 'Dirancang untuk meningkatkan output daya mesin Anda secara signifikan dengan presisi yang tinggi melalui teknologi aliran udara optimal.' }}
                 </p>
             </div>
 
             <div class="space-y-6 p-10 bg-slate-50 border-b-4 border-daytona-navy group hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-2xl">
-                <div class="bg-daytona-navy/10 p-4 rounded-full w-fit text-daytona-navy group-hover:bg-daytona-navy group-hover:text-white transition-colors">
+                <div class="bg-daytona-navy/10 p-4 rounded-full w-fit text-daytona-navy group-hover:bg-daytona-navy group-hover:text-white transition-all duration-300">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                 </div>
-                <h3 class="text-2xl font-black uppercase italic tracking-tighter leading-none">Durability</h3>
+                <h3 class="text-2xl font-black uppercase italic tracking-tighter leading-none group-hover:text-daytona-navy transition-colors">
+                    {{ $webContents['home_features_durability_title'] ?? 'Durability' }}
+                </h3>
                 <p class="text-slate-500 text-sm leading-relaxed">
-                    Material kualitas industri penerbangan memberikan ketahanan luar biasa bahkan dalam kondisi balapan paling ekstrem sekalipun.
+                    {{ $webContents['home_features_durability_desc'] ?? 'Material kualitas industri penerbangan memberikan ketahanan luar biasa bahkan dalam kondisi balapan paling ekstrem sekalipun.' }}
                 </p>
             </div>
 
             <div class="space-y-6 p-10 bg-slate-50 border-b-4 border-daytona-orange group hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-2xl">
-                <div class="bg-daytona-orange/10 p-4 rounded-full w-fit text-daytona-orange group-hover:bg-daytona-orange group-hover:text-white transition-colors">
+                <div class="bg-daytona-orange/10 p-4 rounded-full w-fit text-daytona-orange group-hover:bg-daytona-orange group-hover:text-white transition-all duration-300">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.628.281a2 2 0 01-1.18.124l-2.404-.481a4 4 0 01-2.484-1.555 1.5 1.5 0 112.121-2.121 1.5 1.5 0 012.121 2.121z"></path></svg>
                 </div>
-                <h3 class="text-2xl font-black uppercase italic tracking-tighter leading-none">Track Tested</h3>
+                <h3 class="text-2xl font-black uppercase italic tracking-tighter leading-none group-hover:text-daytona-orange transition-colors">
+                    {{ $webContents['home_features_track_title'] ?? 'Track Tested' }}
+                </h3>
                 <p class="text-slate-500 text-sm leading-relaxed">
-                    Setiap komponen telah diuji coba secara ketat di berbagai sirkuit internasional untuk memastikan standar balap tertinggi.
+                    {{ $webContents['home_features_track_desc'] ?? 'Setiap komponen telah diuji coba secara ketat di berbagai sirkuit internasional untuk memastikan standar balap tertinggi.' }}
                 </p>
             </div>
         </div>
@@ -110,11 +117,15 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
             <div class="space-y-2">
-                <h2 class="text-daytona-orange font-black uppercase tracking-widest text-sm">Our Collection</h2>
-                <h3 class="text-4xl font-black italic tracking-tighter uppercase leading-none">Latest <span class="text-daytona-orange">Products</span></h3>
+                <h2 class="text-daytona-orange font-black uppercase tracking-widest text-sm">
+                    {{ $webContents['home_latest_subtitle'] ?? 'Our Collection' }}
+                </h2>
+                <h3 class="text-4xl font-black italic tracking-tighter uppercase leading-none">
+                    {!! $webContents['home_latest_title'] ?? 'Latest <span class="text-daytona-orange">Products</span>' !!}
+                </h3>
             </div>
-            <a href="#" class="text-sm font-bold uppercase tracking-widest text-daytona-navy hover:text-daytona-orange transition-all border-b-2 border-daytona-navy hover:border-daytona-orange pb-1">
-                View All Collection
+            <a href="{{ route('products.index') }}" class="text-sm font-bold uppercase tracking-widest text-daytona-navy hover:text-daytona-orange transition-all border-b-2 border-daytona-navy hover:border-daytona-orange pb-1">
+                {{ $webContents['home_latest_view_all'] ?? 'View All Collection' }}
             </a>
         </div>
 

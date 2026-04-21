@@ -23,16 +23,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Share website settings, social media, and branches with all views
+        // Share website settings, social media, branches, and web content with all views
         View::composer('*', function ($view) {
             $settings = WebsiteSetting::all()->pluck('value', 'key');
             $socials = SocialMedia::all();
             $branches = Branch::all();
             
+            // Get all web content as a collection for easy access
+            $webContents = \App\Models\WebContent::all()->mapWithKeys(function($item) {
+                $val = $item->value;
+                if ($item->type === 'image' && $val && !str_starts_with($val, 'http')) {
+                    $val = asset('storage/' . $val);
+                }
+                return [$item->slug => $val];
+            });
+            
             $view->with([
                 'webSettings' => $settings,
                 'socials' => $socials,
-                'branches' => $branches
+                'branches' => $branches,
+                'webContents' => $webContents
             ]);
         });
     }

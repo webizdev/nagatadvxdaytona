@@ -8,14 +8,16 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div>
-                <h2 class="text-daytona-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">Get In Touch</h2>
+                <h2 class="text-daytona-orange font-black uppercase tracking-[0.4em] text-[10px] mb-2">
+                    {{ $webContents['contact_header_subtitle'] ?? 'Get In Touch' }}
+                </h2>
                 <h1 class="text-white text-4xl font-black italic tracking-tighter uppercase leading-none">
-                    Contact <span class="text-daytona-orange">Us</span>
+                    {!! $webContents['contact_header_title'] ?? 'Contact <span class="text-daytona-orange">Us</span>' !!}
                 </h1>
             </div>
             <div class="max-w-md">
                 <p class="text-slate-300 text-sm font-medium border-l-4 border-daytona-orange pl-4 leading-relaxed">
-                    Ada pertanyaan mengenai produk atau kemitraan bisnis? Tim ahli kami yang berdedikasi siap memberikan solusi otomotif untuk Anda.
+                    {{ $webContents['contact_header_desc'] ?? 'Ada pertanyaan mengenai produk atau kemitraan bisnis? Tim ahli kami yang berdedikasi siap memberikan solusi otomotif untuk Anda.' }}
                 </p>
             </div>
         </div>
@@ -30,9 +32,11 @@
             <!-- Contact Info Sidebar -->
             <div class="lg:col-span-4 space-y-12">
                 <div class="space-y-6">
-                    <h3 class="text-2xl font-black italic tracking-tighter uppercase text-slate-900 border-l-4 border-daytona-orange pl-6">General Inquiries</h3>
+                    <h3 class="text-2xl font-black italic tracking-tighter uppercase text-slate-900 border-l-4 border-daytona-orange pl-6">
+                        {{ $webContents['contact_sidebar_title'] ?? 'General Inquiries' }}
+                    </h3>
                     <p class="text-slate-500 leading-relaxed font-medium">
-                        Ada pertanyaan mengenai produk atau kemitraan? Jangan ragu untuk menghubungi tim ahli kami.
+                        {{ $webContents['contact_sidebar_desc'] ?? 'Ada pertanyaan mengenai produk atau kemitraan? Jangan ragu untuk menghubungi tim ahli kami.' }}
                     </p>
                 </div>
 
